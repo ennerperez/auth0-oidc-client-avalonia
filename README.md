@@ -4,7 +4,6 @@
 OIDC Client for .NET Desktop (Avalonia) applications.
 
 [![NuGet version](https://img.shields.io/nuget/v/Auth0Avalonia.svg?style=flat)](https://www.nuget.org/packages/Auth0Avalonia/)
-![Downloads](https://img.shields.io/nuget/dt/Auth0Avalonia)
 [![Build status](https://ci.appveyor.com/api/projects/status/v8vsja2iwgdcnpff?svg=true)](https://ci.appveyor.com/project/ennerperez/auth0-oidc-client-avalonia)
 [![License](https://img.shields.io/:license-Apache2.0-blue.svg?style=flat)](https://opensource.org/licenses/Apache-2.0)
 
@@ -23,7 +22,7 @@ This library makes use of the [IdentityModel/IdentityModel.OidcClient](https://g
 The SDK is available on [Nuget](https://www.nuget.org/packages?q=Auth0.OidcClient) for different platforms:
 
 ```
-Install-Package Auth0.OidcClient.Avalonia
+Install-Package Auth0Avalonia 
 ```
 
 ### Configure Auth0
