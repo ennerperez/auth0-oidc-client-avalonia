@@ -13,8 +13,13 @@
     <description>Auth0 OIDC Client for Avalonia apps</description>
 	<summary>$description$</summary>
     <releaseNotes>
-      Version 1.0.0
-      - Initial Avalonia Implementation
+		Version 1.0.2
+			- Readme and Docs Fix
+			- Icon Update
+		Version 1.0.1
+			- WebBrowser and WebView Fixes
+		Version 1.0.0
+			- Initial Avalonia Implementation
     </releaseNotes>
 	<copyright>$copyright$</copyright>
     <tags>Auth0 OIDC Avalonia</tags>
@@ -29,8 +34,8 @@
   </metadata>
   <files>
 	<file src="bin/Release/netstandard2.0/Auth0Avalonia.dll" target="lib/netstandard2.0" />
-	<file src="../../README.md" target="README.md" />
-	<file src="../../CHANGELOG.md" target="CHANGELOG.md" />
+	<file src="../../README.md" target="docs\README.md" />
+	<file src="../../CHANGELOG.md" target="docs\CHANGELOG.md" />
     <file src="../../.editoricon.png" />
   </files>
 </package>
