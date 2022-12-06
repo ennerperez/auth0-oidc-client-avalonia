@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using WebViewControl;
 
 namespace Auth0.OidcClient
 {
@@ -66,13 +67,13 @@ namespace Auth0.OidcClient
         {
             var tcs = new TaskCompletionSource<BrowserResult>();
 
-            var window = _windowFactory();
-            var webView = new WebViewControl.WebView();
+            Window window = _windowFactory();
+            WebView webView = new WebView();
             window.Content = webView;
 
             webView.Navigated += (url, name) =>
             {
-                var uri = new Uri(url);
+                Uri uri = new Uri(url);
                 if (uri.AbsoluteUri.StartsWith(options.EndUrl))
                 {
                     tcs.SetResult(new BrowserResult { ResultType = BrowserResultType.Success, Response = uri.ToString() });
@@ -90,11 +91,12 @@ namespace Auth0.OidcClient
                     tcs.SetResult(new BrowserResult { ResultType = BrowserResultType.UserCancel });
             };
 
+            webView.Address = options.StartUrl;
+
             if (_parent != null)
-	            window.Show(_parent);
+	            window.ShowDialog(_parent);
             else
 	            window.Show();
-            webView.Address = options.StartUrl;
 
             return tcs.Task;
         }
