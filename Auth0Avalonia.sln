@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F4F201D8-5C51-4060-8D16-D4515DB497F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D6D8AA1-DD3D-4B0D-AEDF-A588704AFE09}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0Avalonia", "src\Auth0Avalonia\Auth0Avalonia.csproj", "{9F541DD5-01B7-45E0-87FF-EFF6588D974F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaUI", "test\AvaloniaUI\AvaloniaUI.csproj", "{AF0429F6-740F-4C4A-AF29-F83209B880A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".files", ".files", "{E88770FF-54F1-4D15-AF3B-0972335CBB46}"
+	ProjectSection(SolutionItems) = preProject
+		.editoricon.png = .editoricon.png
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		CHANGELOG.md = CHANGELOG.md
+		build.cake = build.cake
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8CA97D35-BD7A-4BFB-857D-8F433AE0BA6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AF0429F6-740F-4C4A-AF29-F83209B880A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0429F6-740F-4C4A-AF29-F83209B880A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0429F6-740F-4C4A-AF29-F83209B880A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AF0429F6-740F-4C4A-AF29-F83209B880A8} = {F4F201D8-5C51-4060-8D16-D4515DB497F8}
+		{9F541DD5-01B7-45E0-87FF-EFF6588D974F} = {8CA97D35-BD7A-4BFB-857D-8F433AE0BA6A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,10 @@
+root = true
+
+# Don't use tabs for indentation.
+[*]
+indent_style = tab
+
+# Code files
+[*.{cs,csx,vb,vbx}]
+indent_size = 4
+insert_final_newline = true

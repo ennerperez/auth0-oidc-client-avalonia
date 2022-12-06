@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <owners>$author$</owners>
+    <authors>$author$</authors>
+	<icon>.editoricon.png</icon>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/ennerperez/auth0-oidc-client-avalonia</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Auth0 OIDC Client for Avalonia apps</description>
+	<summary>$description$</summary>
+    <releaseNotes>
+      Version 1.0.0
+      - Initial Avalonia Implementation
+    </releaseNotes>
+	<copyright>$copyright$</copyright>
+    <tags>Auth0 OIDC Avalonia</tags>
+	<repository type="git" url="https://github.com/ennerperez/auth0-oidc-client-avalonia" />
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="Auth0.OidcClient.Core" version="3.2.6" />
+        <dependency id="IdentityModel.OidcClient" version="5.0.0.0" />
+        <dependency id="WebViewControl-Avalonia" version="2.91.29" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+	<file src="bin/Release/netstandard2.0/Auth0Avalonia.dll" target="lib/netstandard2.0" />
+	<file src="../../README.md" target="README.md" />
+	<file src="../../CHANGELOG.md" target="CHANGELOG.md" />
+    <file src="../../.editoricon.png" />
+  </files>
+</package>
