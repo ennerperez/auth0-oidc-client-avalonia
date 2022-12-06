@@ -21,7 +21,15 @@ namespace AvaloniaUI
             _auth0Client = new Auth0Client(new Auth0ClientOptions
             {
                 Domain = "auth0-dotnet-integration-tests.auth0.com",
-                ClientId = "qmss9A66stPWTOXjR6X1OeA0DLadoNP2"
+                ClientId = "qmss9A66stPWTOXjR6X1OeA0DLadoNP2",
+                Browser = new WebBrowser(
+                width: Width,
+                height: Height * 2,
+                minWidth: MinWidth,
+                minHeight: MinHeight,
+                icon: Icon,
+                parent: this,
+                startupLocation: WindowStartupLocation.CenterOwner )
             });
         }
 
