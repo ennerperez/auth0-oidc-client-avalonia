@@ -2,6 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaUI.App">
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <FluentTheme>
+	        <FluentTheme.Palettes>
+		        <!-- Palette for Light theme variant -->
+		        <ColorPaletteResources x:Key="Light" Accent="Green" RegionColor="White" ErrorText="Red" />
+		        <!-- Palette for Dark theme variant -->
+		        <ColorPaletteResources x:Key="Dark" Accent="DarkGreen" RegionColor="Black" ErrorText="Yellow" />
+	        </FluentTheme.Palettes>
+        </FluentTheme>
     </Application.Styles>
 </Application>
