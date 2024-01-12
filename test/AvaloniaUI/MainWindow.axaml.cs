@@ -8,15 +8,15 @@ namespace AvaloniaUI
     public partial class MainWindow : Window
     {
         private readonly Auth0Client _auth0Client;
-        private readonly Action<string> writeLine;
-        private Action clearText;
-        private string accessToken;
+        private readonly Action<string> _writeLine;
+        private Action _clearText;
+        private string _accessToken;
 
         public MainWindow()
         {
             InitializeComponent();
-            writeLine = (text) => outputText.Text += text + "\n";
-            clearText = () => outputText.Text = "";
+            _writeLine = (text) => outputText.Text += text + "\n";
+            _clearText = () => outputText.Text = "";
 
             _auth0Client = new Auth0Client(new Auth0ClientOptions
             {
@@ -35,64 +35,64 @@ namespace AvaloniaUI
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            clearText();
-            writeLine("Starting login...");
+            _clearText();
+            _writeLine("Starting login...");
 
             var loginResult = await _auth0Client.LoginAsync( new { organization = "" });
 
             if (loginResult.IsError)
             {
-                writeLine($"An error occurred during login: {loginResult.Error}");
+                _writeLine($"An error occurred during login: {loginResult.Error}");
                 return;
             }
 
-            accessToken = loginResult.AccessToken;
+            _accessToken = loginResult.AccessToken;
 
-            writeLine($"id_token: {loginResult.IdentityToken}");
-            writeLine($"access_token: {loginResult.AccessToken}");
-            writeLine($"refresh_token: {loginResult.RefreshToken}");
+            _writeLine($"id_token: {loginResult.IdentityToken}");
+            _writeLine($"access_token: {loginResult.AccessToken}");
+            _writeLine($"refresh_token: {loginResult.RefreshToken}");
 
-            writeLine($"name: {loginResult.User.FindFirst(c => c.Type == "name")?.Value}");
-            writeLine($"email: {loginResult.User.FindFirst(c => c.Type == "email")?.Value}");
+            _writeLine($"name: {loginResult.User.FindFirst(c => c.Type == "name")?.Value}");
+            _writeLine($"email: {loginResult.User.FindFirst(c => c.Type == "email")?.Value}");
 
             foreach (var claim in loginResult.User.Claims)
             {
-                writeLine($"{claim.Type} = {claim.Value}");
+                _writeLine($"{claim.Type} = {claim.Value}");
             }
         }
 
         private async void LogoutButton_OnClick(object sender, RoutedEventArgs e)
         {
-            clearText();
-            writeLine("Starting logout...");
+            _clearText();
+            _writeLine("Starting logout...");
 
             var result = await _auth0Client.LogoutAsync();
-            accessToken = null;
-            writeLine(result.ToString());
+            _accessToken = null;
+            _writeLine(result.ToString());
         }
 
         private async void UserInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            clearText();
+            _clearText();
 
-            if (string.IsNullOrEmpty(accessToken))
+            if (string.IsNullOrEmpty(_accessToken))
             {
-                writeLine("You need to be logged in to get user info");
+                _writeLine("You need to be logged in to get user info");
                 return;
             }
 
-            writeLine("Getting user info...");
-            var userInfoResult = await _auth0Client.GetUserInfoAsync(accessToken);
+            _writeLine("Getting user info...");
+            var userInfoResult = await _auth0Client.GetUserInfoAsync(_accessToken);
 
             if (userInfoResult.IsError)
             {
-                writeLine($"An error occurred getting user info: {userInfoResult.Error}");
+                _writeLine($"An error occurred getting user info: {userInfoResult.Error}");
                 return;
             }
 
             foreach (var claim in userInfoResult.Claims)
             {
-                writeLine($"{claim.Type} = {claim.Value}");
+                _writeLine($"{claim.Type} = {claim.Value}");
             }
         }
     }

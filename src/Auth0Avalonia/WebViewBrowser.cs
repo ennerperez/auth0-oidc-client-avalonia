@@ -3,12 +3,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
-using WebViewControl;
+using AvaloniaWebView;
 
 namespace Auth0.OidcClient
 {
     /// <summary>
-    /// Implements the <see cref="IBrowser"/> interface using the <see cref="WebViewCompatible"/> control.
+    /// Implements the <see cref="IBrowser"/> interface using the <see cref="WebViewBrowser"/> control.
     /// </summary>
     public class WebViewBrowser : IBrowser
     {
@@ -67,16 +67,15 @@ namespace Auth0.OidcClient
         {
             var tcs = new TaskCompletionSource<BrowserResult>();
 
-            Window window = _windowFactory();
-            WebView webView = new WebView();
+            var window = _windowFactory();
+            var webView = new WebView();
             window.Content = webView;
 
-            webView.Navigated += (url, name) =>
+            webView.NavigationStarting += (_, arg) =>
             {
-                Uri uri = new Uri(url);
-                if (uri.AbsoluteUri.StartsWith(options.EndUrl))
+                if (arg?.Url?.AbsoluteUri.StartsWith(options.EndUrl) ?? false)
                 {
-                    tcs.SetResult(new BrowserResult { ResultType = BrowserResultType.Success, Response = uri.ToString() });
+                    tcs.SetResult(new BrowserResult { ResultType = BrowserResultType.Success, Response = arg.Url.ToString() });
                     if (_shouldCloseWindow)
                         window.Close();
                     else
@@ -84,14 +83,14 @@ namespace Auth0.OidcClient
                 }
             };
 
-            window.Closing += (sender, e) =>
+            window.Closing += (_, _) =>
             {
-                webView.Dispose();
+                //webView.Dispose();
                 if (!tcs.Task.IsCompleted)
                     tcs.SetResult(new BrowserResult { ResultType = BrowserResultType.UserCancel });
             };
 
-            webView.Address = options.StartUrl;
+            webView.Url = new Uri(options.StartUrl);
 
             if (_parent != null)
 	            window.ShowDialog(_parent);
