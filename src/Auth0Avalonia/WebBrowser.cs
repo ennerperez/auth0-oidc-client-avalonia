@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using AvaloniaWebView;
 using IdentityModel.OidcClient.Browser;
-using WebViewControl;
 
 namespace Auth0.OidcClient
 {
@@ -76,48 +75,47 @@ namespace Auth0.OidcClient
 		/// <inheritdoc />
 		public async Task<BrowserResult> InvokeAsync(BrowserOptions options, CancellationToken cancellationToken = default)
 		{
-			Window window = _windowFactory.Invoke();
-			using (WebView browser = new WebView())
+			var window = _windowFactory.Invoke();
+			var browser = new WebView();
+
+			var signal = new SemaphoreSlim(0, 1);
+
+			var result = new BrowserResult
 			{
-				SemaphoreSlim signal = new SemaphoreSlim(0, 1);
+				ResultType = BrowserResultType.UserCancel
+			};
 
-				BrowserResult result = new BrowserResult
+			window.Closed += (_, _) =>
+			{
+				signal.Release();
+			};
+
+			browser.NavigationStarting += (_, arg) =>
+			{
+				if (arg?.Url?.AbsoluteUri.StartsWith(options.EndUrl) ?? false)
 				{
-					ResultType = BrowserResultType.UserCancel
-				};
-
-				window.Closed += (s, e) =>
-				{
-					signal.Release();
-				};
-
-				browser.Navigated += (url, name) =>
-				{
-					Uri uri = new Uri(url);
-					if (uri.AbsoluteUri.StartsWith(options.EndUrl))
-					{
-						result.ResultType = BrowserResultType.Success;
-						result.Response = uri.ToString();
-						if (_shouldCloseWindow)
-							window.Close();
-						else
-							window.Content = null;
-					}
-				};
-
-				window.Content = browser;
-				browser.Address = options.StartUrl;
-
-				if (_parent != null)
-					await window.ShowDialog(_parent);
-				else
-				{
-					window.Show();
-					await signal.WaitAsync();
+					result.ResultType = BrowserResultType.Success;
+					result.Response = arg.Url.ToString();
+					if (_shouldCloseWindow)
+						window.Close();
+					else
+						window.Content = null;
 				}
+			};
 
-				return result;
+			window.Content = browser;
+			browser.Url = new Uri(options.StartUrl);
+
+			if (_parent != null)
+				await window.ShowDialog(_parent);
+			else
+			{
+				window.Show();
+				await signal.WaitAsync();
 			}
+
+			return result;
+
 		}
 	}
 }

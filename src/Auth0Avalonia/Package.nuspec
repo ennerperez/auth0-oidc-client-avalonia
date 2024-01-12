@@ -13,6 +13,11 @@
     <description>Auth0 OIDC Client for Avalonia apps</description>
 	<summary>$description$</summary>
     <releaseNotes>
+		Version 1.1.3
+			- Avalonia Updated
+			- Auth0 OidcClient Updated
+			- WebViewControl Replaced by WebView.Avalonia
+			- Code cleanup and minor enhacements
 		Version 1.0.2
 			- Readme and Docs Fix
 			- Icon Update
@@ -26,9 +31,8 @@
 	<repository type="git" url="https://github.com/ennerperez/auth0-oidc-client-avalonia" />
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="Auth0.OidcClient.Core" version="3.2.6" />
-        <dependency id="IdentityModel.OidcClient" version="5.0.0.0" />
-        <dependency id="WebViewControl-Avalonia" version="2.91.29" />
+        <dependency id="Auth0.OidcClient.Core" version="4.0.0" />
+        <dependency id="WebView.Avalonia" version="11.0.0.1" />
       </group>
     </dependencies>
   </metadata>
