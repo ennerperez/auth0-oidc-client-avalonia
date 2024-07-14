@@ -56,7 +56,7 @@ namespace Auth0.OidcClient
                 MaxHeight = maxHeight,
                 MaxWidth = maxWidth,
                 WindowStartupLocation = startupLocation,
-                Icon = icon
+                Icon = icon,
             })
         {
 	        _parent = parent;
