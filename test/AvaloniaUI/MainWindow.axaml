@@ -2,9 +2,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaUI.MainWindow"
-        Title="XAML OIDC Test" d:DesignWidth="350" d:DesignHeight="525">
+        Icon="/Assets/avalonia-logo.ico"
+        Title="XAML OIDC Test">
     <Grid>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0" Click="LoginButton_Click"/>
         <Button x:Name="userInfoButton" Content="User info" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="0,10,0,0" Click="UserInfoButton_Click"/>

@@ -47,14 +47,20 @@ namespace Auth0.OidcClient
 		/// <param name="minHeight">An optional <see cref="int"/> specifying the min height of the form. Defaults to 768.</param>
 		/// <param name="maxWidth">An optional <see cref="int"/> specifying the min width of the form. Defaults to 1024.</param>
 		/// <param name="maxHeight">An optional <see cref="int"/> specifying the min height of the form. Defaults to 768.</param>
-		/// <param name="startupLocation">An optional <see cref="int"/> specifying the startupLocation from parent.</param>
+		/// <param name="windowStartupLocation">An optional <see cref="int"/> specifying the startupLocation from parent.</param>
 		/// <param name="icon">An optional <see cref="int"/> specifying the form icon.</param>
+		/// <param name="systemDecorations">An optional <see cref="SystemDecorations"/> specifying the form system decorations.</param>
+		/// <param name="canResize">An optional <see cref="bool"/> specifying the can resize option.</param>
 		/// <param name="parent">An optional <see cref="int"/> specifying the parent form.</param>
 		public WebBrowser(string title = "Authenticating...",
 			double width = 1024, double height = 768,
 			double minWidth = 1024, double minHeight = 768,
 			double maxWidth = 1024, double maxHeight = 768,
-			WindowStartupLocation startupLocation = WindowStartupLocation.CenterScreen, WindowIcon icon = null, Window parent = null)
+			WindowStartupLocation windowStartupLocation = WindowStartupLocation.CenterScreen, 
+			WindowIcon icon = null, 
+			SystemDecorations systemDecorations = SystemDecorations.Full,
+			bool canResize = true,
+			Window parent = null)
 			: this(() => new Window
 			{
 				Name = "WebAuthentication",
@@ -65,9 +71,16 @@ namespace Auth0.OidcClient
 				MinWidth = minWidth,
 				MaxHeight = maxHeight,
 				MaxWidth = maxWidth,
-				WindowStartupLocation = startupLocation,
-				Icon = icon
+				WindowStartupLocation = windowStartupLocation,
+				Icon = icon ?? parent?.Icon,
+				SystemDecorations = systemDecorations,
+				CanResize = canResize
 			})
+		{
+			_parent = parent;
+		}
+		
+		public WebBrowser(Window child, Window parent = null) : this(() => child)
 		{
 			_parent = parent;
 		}
@@ -85,21 +98,20 @@ namespace Auth0.OidcClient
 				ResultType = BrowserResultType.UserCancel
 			};
 
-			window.Closed += (_, _) =>
-			{
-				signal.Release();
-			};
+			window.Closed += (_, _) => { signal.Release(); };
 
 			browser.NavigationStarting += (_, arg) =>
 			{
-				if (arg?.Url?.AbsoluteUri.StartsWith(options.EndUrl) ?? false)
+				if (!(arg?.Url?.AbsoluteUri.StartsWith(options.EndUrl) ?? false)) return;
+				result.ResultType = BrowserResultType.Success;
+				result.Response = arg.Url.ToString();
+				if (_shouldCloseWindow)
 				{
-					result.ResultType = BrowserResultType.Success;
-					result.Response = arg.Url.ToString();
-					if (_shouldCloseWindow)
-						window.Close();
-					else
-						window.Content = null;
+					window.Close();
+				}
+				else
+				{
+					window.Content = null;
 				}
 			};
 
@@ -107,15 +119,16 @@ namespace Auth0.OidcClient
 			browser.Url = new Uri(options.StartUrl);
 
 			if (_parent != null)
+			{
 				await window.ShowDialog(_parent);
+			}
 			else
 			{
 				window.Show();
-				await signal.WaitAsync();
+				await signal.WaitAsync(cancellationToken);
 			}
 
 			return result;
-
 		}
 	}
 }
