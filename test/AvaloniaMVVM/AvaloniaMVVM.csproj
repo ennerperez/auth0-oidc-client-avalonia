@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<TrimMode>partial</TrimMode>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.0.11" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.11" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.11" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.11" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.11" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="WebView.Avalonia.Desktop" Version="11.0.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Auth0Avalonia\Auth0Avalonia.csproj" />
+    </ItemGroup>
+</Project>

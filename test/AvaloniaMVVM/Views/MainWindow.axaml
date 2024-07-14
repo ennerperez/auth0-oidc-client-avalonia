@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaMVVM.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaMVVM.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="XAML OIDC Test">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid>
+		<Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0" Command="{Binding LoginButtonCommand}"/>
+		<Button x:Name="userInfoButton" Content="User info" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="0,10,0,0" Command="{Binding UserInfoButtonCommand}"/>
+		<Button x:Name="logoutButton" Content="Logout" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="0,10,10,0" Command="{Binding LogoutButtonCommand}"/>
+		<TextBox x:Name="outputText" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,40,10,10" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding OutputText}" />
+	</Grid>
+
+</Window>
