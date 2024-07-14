@@ -8,8 +8,8 @@
 		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.6"/>
-		<PackageReference Include="Auth0.OidcClient.Core" Version="4.0.0"/>
+		<PackageReference Include="Avalonia" Version="11.0.11" />
+		<PackageReference Include="Auth0.OidcClient.Core" Version="4.0.1" />
 		<PackageReference Include="WebView.Avalonia" Version="11.0.0.1"/>
 	</ItemGroup>
 </Project>
