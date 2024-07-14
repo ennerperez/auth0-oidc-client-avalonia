@@ -5,95 +5,101 @@ using Avalonia.Interactivity;
 
 namespace AvaloniaUI
 {
-    public partial class MainWindow : Window
-    {
-        private readonly Auth0Client _auth0Client;
-        private readonly Action<string> _writeLine;
-        private Action _clearText;
-        private string _accessToken;
+	public partial class MainWindow : Window
+	{
+		private readonly Auth0Client _auth0Client;
+		private readonly Action<string> _writeLine;
+		private readonly Action _clearText;
+		private string _accessToken;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            _writeLine = (text) => outputText.Text += text + "\n";
-            _clearText = () => outputText.Text = "";
+		public MainWindow()
+		{
+			InitializeComponent();
+			_writeLine = (text) => outputText.Text += text + "\n";
+			_clearText = () => outputText.Text = "";
 
-            _auth0Client = new Auth0Client(new Auth0ClientOptions
-            {
-                Domain = "auth0-dotnet-integration-tests.auth0.com",
-                ClientId = "qmss9A66stPWTOXjR6X1OeA0DLadoNP2",
-                Browser = new WebBrowser(
-                width: Width,
-                height: Height * 2,
-                minWidth: MinWidth,
-                minHeight: MinHeight,
-                icon: Icon,
-                parent: this,
-                startupLocation: WindowStartupLocation.CenterOwner )
-            });
-        }
+			var window = new Window()
+			{
+				Width = Width,
+				Height = Height,
+				MinWidth = MinWidth,
+				MinHeight = MinHeight,
+				MaxWidth = Screens.Primary?.Bounds.Width ?? 1024,
+				MaxHeight = Screens.Primary?.Bounds.Height ?? 768,
+				Icon = Icon,
+				WindowStartupLocation = WindowStartupLocation.CenterOwner, 
+				CanResize = false
+			};
 
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            _clearText();
-            _writeLine("Starting login...");
+			_auth0Client = new Auth0Client(new Auth0ClientOptions
+			{
+				Domain = "auth0-dotnet-integration-tests.auth0.com",
+				ClientId = "qmss9A66stPWTOXjR6X1OeA0DLadoNP2",
+				Browser = new WebBrowser(window, this)
+			});
+		}
 
-            var loginResult = await _auth0Client.LoginAsync( new { organization = "" });
+		private async void LoginButton_Click(object sender, RoutedEventArgs e)
+		{
+			_clearText();
+			_writeLine("Starting login...");
 
-            if (loginResult.IsError)
-            {
-                _writeLine($"An error occurred during login: {loginResult.Error}");
-                return;
-            }
+			var loginResult = await _auth0Client.LoginAsync(new { organization = "" });
 
-            _accessToken = loginResult.AccessToken;
+			if (loginResult.IsError)
+			{
+				_writeLine($"An error occurred during login: {loginResult.Error}");
+				return;
+			}
 
-            _writeLine($"id_token: {loginResult.IdentityToken}");
-            _writeLine($"access_token: {loginResult.AccessToken}");
-            _writeLine($"refresh_token: {loginResult.RefreshToken}");
+			_accessToken = loginResult.AccessToken;
 
-            _writeLine($"name: {loginResult.User.FindFirst(c => c.Type == "name")?.Value}");
-            _writeLine($"email: {loginResult.User.FindFirst(c => c.Type == "email")?.Value}");
+			_writeLine($"id_token: {loginResult.IdentityToken}");
+			_writeLine($"access_token: {loginResult.AccessToken}");
+			_writeLine($"refresh_token: {loginResult.RefreshToken}");
 
-            foreach (var claim in loginResult.User.Claims)
-            {
-                _writeLine($"{claim.Type} = {claim.Value}");
-            }
-        }
+			_writeLine($"name: {loginResult.User.FindFirst(c => c.Type == "name")?.Value}");
+			_writeLine($"email: {loginResult.User.FindFirst(c => c.Type == "email")?.Value}");
 
-        private async void LogoutButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _clearText();
-            _writeLine("Starting logout...");
+			foreach (var claim in loginResult.User.Claims)
+			{
+				_writeLine($"{claim.Type} = {claim.Value}");
+			}
+		}
 
-            var result = await _auth0Client.LogoutAsync();
-            _accessToken = null;
-            _writeLine(result.ToString());
-        }
+		private async void LogoutButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			_clearText();
+			_writeLine("Starting logout...");
 
-        private async void UserInfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            _clearText();
+			var result = await _auth0Client.LogoutAsync();
+			_accessToken = null;
+			_writeLine(result.ToString());
+		}
 
-            if (string.IsNullOrEmpty(_accessToken))
-            {
-                _writeLine("You need to be logged in to get user info");
-                return;
-            }
+		private async void UserInfoButton_Click(object sender, RoutedEventArgs e)
+		{
+			_clearText();
 
-            _writeLine("Getting user info...");
-            var userInfoResult = await _auth0Client.GetUserInfoAsync(_accessToken);
+			if (string.IsNullOrEmpty(_accessToken))
+			{
+				_writeLine("You need to be logged in to get user info");
+				return;
+			}
 
-            if (userInfoResult.IsError)
-            {
-                _writeLine($"An error occurred getting user info: {userInfoResult.Error}");
-                return;
-            }
+			_writeLine("Getting user info...");
+			var userInfoResult = await _auth0Client.GetUserInfoAsync(_accessToken);
 
-            foreach (var claim in userInfoResult.Claims)
-            {
-                _writeLine($"{claim.Type} = {claim.Value}");
-            }
-        }
-    }
+			if (userInfoResult.IsError)
+			{
+				_writeLine($"An error occurred getting user info: {userInfoResult.Error}");
+				return;
+			}
+
+			foreach (var claim in userInfoResult.Claims)
+			{
+				_writeLine($"{claim.Type} = {claim.Value}");
+			}
+		}
+	}
 }

@@ -4,24 +4,12 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<Nullable>disable</Nullable>
-		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-		<TrimMode>copyused</TrimMode>
+		<TrimMode>partial</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-		<LangVersion>default</LangVersion>
-		<RootNamespace>Avalonia</RootNamespace>
-	</PropertyGroup>
-	<PropertyGroup>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Remove=".gitignore"/>
-	</ItemGroup>
-	<ItemGroup>
-		<!--This helps with theme dll-s trimming.
-        If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa.
-        https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
-		<TrimmableAssembly Include="Avalonia.Themes.Fluent"/>
-		<TrimmableAssembly Include="Avalonia.Themes.Default"/>
+		<AvaloniaResource Include="Assets\**"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.0.11" />
