@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using AvaloniaWebView;
-using IdentityModel.OidcClient.Browser;
+using Duende.IdentityModel.OidcClient.Browser;
 
 namespace Auth0.OidcClient
 {
@@ -49,7 +49,7 @@ namespace Auth0.OidcClient
 		/// <param name="maxHeight">An optional <see cref="int"/> specifying the min height of the form. Defaults to 768.</param>
 		/// <param name="windowStartupLocation">An optional <see cref="int"/> specifying the startupLocation from parent.</param>
 		/// <param name="icon">An optional <see cref="int"/> specifying the form icon.</param>
-		/// <param name="systemDecorations">An optional <see cref="SystemDecorations"/> specifying the form system decorations.</param>
+		/// <param name="windowDecorations">An optional <see cref="WindowDecorations"/> specifying the form system decorations.</param>
 		/// <param name="canResize">An optional <see cref="bool"/> specifying the can resize option.</param>
 		/// <param name="parent">An optional <see cref="int"/> specifying the parent form.</param>
 		public WebBrowser(string title = "Authenticating...",
@@ -58,7 +58,7 @@ namespace Auth0.OidcClient
 			double maxWidth = 1024, double maxHeight = 768,
 			WindowStartupLocation windowStartupLocation = WindowStartupLocation.CenterScreen, 
 			WindowIcon icon = null, 
-			SystemDecorations systemDecorations = SystemDecorations.Full,
+			WindowDecorations windowDecorations = WindowDecorations.Full,
 			bool canResize = true,
 			Window parent = null)
 			: this(() => new Window
@@ -73,7 +73,7 @@ namespace Auth0.OidcClient
 				MaxWidth = maxWidth,
 				WindowStartupLocation = windowStartupLocation,
 				Icon = icon ?? parent?.Icon,
-				SystemDecorations = systemDecorations,
+				WindowDecorations = windowDecorations,
 				CanResize = canResize
 			})
 		{
