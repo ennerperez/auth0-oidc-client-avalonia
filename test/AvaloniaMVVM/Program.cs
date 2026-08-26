@@ -19,6 +19,7 @@ namespace AvaloniaMVVM
 				.UsePlatformDetect()
 				.LogToTrace()
 				.WithInterFont()
-				.UseDesktopWebView();
+				.UseDesktopWebView()
+				.WithDataAnnotationsValidation();
 	}
 }

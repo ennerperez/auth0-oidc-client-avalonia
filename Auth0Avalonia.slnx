@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/.files/">
+    <File Path=".editorconfig" />
+    <File Path=".editoricon.png" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="build.cake" />
+    <File Path="CHANGELOG.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Auth0Avalonia/Auth0Avalonia.csproj">
+      <Deploy Solution="Release|*" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="test/AvaloniaMVVM/AvaloniaMVVM.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+    <Project Path="test/AvaloniaUI/AvaloniaUI.csproj">
+      <Build Solution="Release|*" Project="false" />
+    </Project>
+  </Folder>
+</Solution>

@@ -14,7 +14,8 @@ namespace AvaloniaUI
 
 		public MainWindow()
 		{
-			InitializeComponent();
+			InitializeIfNeeded();
+			
 			_writeLine = (text) => outputText.Text += text + "\n";
 			_clearText = () => outputText.Text = "";
 

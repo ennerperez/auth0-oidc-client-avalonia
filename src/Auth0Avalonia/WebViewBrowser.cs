@@ -1,9 +1,9 @@
-﻿using IdentityModel.OidcClient.Browser;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Avalonia.Controls;
 using AvaloniaWebView;
+using Duende.IdentityModel.OidcClient.Browser;
+using Avalonia.Controls;
 
 namespace Auth0.OidcClient
 {

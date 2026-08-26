@@ -14,7 +14,7 @@ var buildDir = Directory("./build") + Directory(configuration);
 
 // Define solutions.
 var solutions = new Dictionary<string, string> {
-     { "./Auth0Avalonia.sln", "Any" },
+     { "./Auth0Avalonia.slnx", "Any" },
 };
 
 // Define AssemblyInfo source.

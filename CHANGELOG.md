@@ -30,4 +30,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Avalonia Updated
 - Auth0 OidcClient Updated
 - WebViewControl Replaced by WebView.Avalonia
-- Code cleanup and minor enhacements
+- Code cleanup and minor enhancements
+
+## [1.2.0]
+
+### Changed
+
+- dotnet 10.0 Support
