@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using System;
-using Avalonia.WebView.Desktop;
 
 namespace AvaloniaMVVM
 {
@@ -19,7 +18,6 @@ namespace AvaloniaMVVM
 				.UsePlatformDetect()
 				.LogToTrace()
 				.WithInterFont()
-				.UseDesktopWebView()
 				.WithDataAnnotationsValidation();
 	}
 }

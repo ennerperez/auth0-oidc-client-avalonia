@@ -29,26 +29,24 @@ namespace AvaloniaMVVM.ViewModels
 			{
 				if (_client != null) return _client;
 				if (Application.Current == null || Application.Current.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) return null;
-				var window = new Window()
-				{
-					Width = desktop.MainWindow?.Width ?? 480,
-					Height = desktop.MainWindow?.Height ?? 640,
-					MinWidth = desktop.MainWindow?.MinWidth ?? 480,
-					MinHeight = desktop.MainWindow?.MinHeight ?? 640,
-					MaxWidth = desktop.MainWindow?.Screens.Primary?.Bounds.Width ?? 1024,
-					MaxHeight = desktop.MainWindow?.Screens.Primary?.Bounds.Height ?? 768,
-					Icon = desktop.MainWindow?.Icon,
-					WindowStartupLocation = WindowStartupLocation.CenterOwner,
-					CanResize = false
-				};
 				_client = new Auth0Client(new Auth0ClientOptions
 				{
 					Domain = "auth0-dotnet-integration-tests.auth0.com",
 					ClientId = "qmss9A66stPWTOXjR6X1OeA0DLadoNP2",
-					Browser = new WebBrowser(window, desktop.MainWindow)
+					Browser = new WebViewBrowser(() => new Window()
+					{
+						Width = desktop.MainWindow?.Width ?? 480,
+						Height = desktop.MainWindow?.Height ?? 640,
+						MinWidth = desktop.MainWindow?.MinWidth ?? 480,
+						MinHeight = desktop.MainWindow?.MinHeight ?? 640,
+						MaxWidth = desktop.MainWindow?.Screens.Primary?.Bounds.Width ?? 1024,
+						MaxHeight = desktop.MainWindow?.Screens.Primary?.Bounds.Height ?? 768,
+						Icon = desktop.MainWindow?.Icon,
+						WindowStartupLocation = WindowStartupLocation.CenterOwner,
+						CanResize = false
+					},  desktop.MainWindow)
 				});
 				return _client;
-
 			};
 
 			LoginButtonCommand = new AsyncRelayCommand<RoutedEventArgs>(LoginButton_Click);
@@ -60,7 +58,7 @@ namespace AvaloniaMVVM.ViewModels
 		public ICommand UserInfoButtonCommand { get; set; }
 		public ICommand LogoutButtonCommand { get; set; }
 
-		[ObservableProperty] private string outputText;
+		[ObservableProperty] private string _outputText;
 
 		private async Task LoginButton_Click(RoutedEventArgs e)
 		{
