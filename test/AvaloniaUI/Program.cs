@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
-using Avalonia.WebView.Desktop;
 
 namespace AvaloniaUI
 {
@@ -19,7 +18,6 @@ namespace AvaloniaUI
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI()
-                .UseDesktopWebView();
+                .UseReactiveUI();
     }
 }

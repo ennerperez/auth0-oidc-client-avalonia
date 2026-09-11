@@ -1,8 +1,11 @@
-﻿namespace Auth0.OidcClient
+﻿using Duende.IdentityModel.OidcClient;
+using Duende.IdentityModel.OidcClient.Browser;
+
+namespace Auth0.OidcClient
 {
     /// <summary>
     /// Primary class for performing authentication and authorization operations with Auth0 using the
-    /// underlying <see cref="IdentityModel.OidcClient.OidcClient"/>.
+    /// underlying <see cref="OidcClient"/>.
     /// </summary>
     public class Auth0Client : Auth0ClientBase
     {
@@ -13,7 +16,7 @@
         public Auth0Client(Auth0ClientOptions options)
             : base(options, "avalonia")
         {
-            options.Browser = options.Browser ?? new WebViewBrowser();
+	        options.Browser = options.Browser ?? (IBrowser) new WebViewBrowser();
         }
     }
 }
